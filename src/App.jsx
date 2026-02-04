@@ -10,6 +10,8 @@ import Terms from "./pages/Terms";
 import Disclaimer from "./pages/Disclaimer";
 import DMCA from "./pages/DMCA";
 import ProductPage from "./pages/ProductPage";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import { CartProvider } from "./context/CartContext";
 export default function App() {
   return (
@@ -22,9 +24,7 @@ export default function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
-
-            {/* We will build these later */}
-            <Route path="/cart" element={<h1>Cart Page Coming Soon</h1>} />
+            
             <Route
               path="/account"
               element={<h1>Account Page Coming Soon</h1>}
@@ -34,6 +34,8 @@ export default function App() {
             <Route path="/disclaimer" element={<Disclaimer />} />
             <Route path="/dmca" element={<DMCA />} />
             <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </BrowserRouter>
       </CartProvider>
