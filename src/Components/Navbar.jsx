@@ -2,10 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { CartIcon } from "./Icons";
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { cartCount } = useCart();
-
+  const { user } = useAuth();
   return (
     <>
       {/* 1. The Navbar itself */}
@@ -24,9 +25,17 @@ export default function Navbar() {
 
         {/* Right Side: Account & Cart */}
         <div className="nav-right" style={{ display: "flex", alignItems: "center", gap: "25px" }}>
-          <Link to="/account" className="nav-link" style={{ textDecoration: "none", color: "#3e2723", fontWeight: "500" }}>
-            My Account
-          </Link>
+          {user ? (
+            // OPTION A: If Logged In -> Show "My Account"
+            <Link to="/account" className="nav-link" style={linkStyle}>
+              Hello, {user.name.split(" ")[0]} {/* Shows "Hello, Mohit" */}
+            </Link>
+          ) : (
+            // OPTION B: If Logged Out -> Show "Login"
+            <Link to="/login" className="nav-link" style={linkStyle}>
+              Login
+            </Link>
+          )}
           
           {/* 2. The Improved Cart Icon */}
           <Link to="/cart" className="cart-container" style={cartContainerStyle}>
@@ -105,4 +114,12 @@ const badgeStyle = {
   fontWeight: "bold",
   boxShadow: "0 2px 4px rgba(0,0,0,0.2)", // Tiny shadow to make it pop
   border: "2px solid #fff" // White border separates it from the icon
+};
+
+
+const linkStyle = {
+  textDecoration: "none", 
+  color: "#3e2723", 
+  fontWeight: "500",
+  fontSize: "0.95rem"
 };
