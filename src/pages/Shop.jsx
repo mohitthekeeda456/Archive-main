@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import FeaturedCollection from "../Components/FeaturedCollection"; // Reusing your grid!
 import Footer from "../Components/Footer";
 

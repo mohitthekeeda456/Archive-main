@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { useAuth } from "../context/AuthContext";
 export default function Account() {

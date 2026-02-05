@@ -2,7 +2,7 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 
 const CartContext = createContext();
 
-// eslint-disable-next-line react-refresh/only-export-components
+// eslint-disable-next-line react-refresh/only-export-Components
 export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {

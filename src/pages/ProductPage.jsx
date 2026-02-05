@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { products } from "../data/products"; // Import your mock database
-import { CartIcon } from "../components/Icons"; // Reusing your existing icon
+import { CartIcon } from "../Components/Icons"; // Reusing your existing icon
 import { useCart } from "../context/CartContext";
 const ProductPage = () => {
   const { addToCart } = useCart();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { useCart } from "../context/CartContext";
 import { Link, useNavigate } from "react-router-dom";

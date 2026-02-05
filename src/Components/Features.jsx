@@ -1,4 +1,4 @@
-// src/components/Features.jsx
+// src/Components/Features.jsx
 import React from "react";
 import { QualityIcon, HandcraftedIcon, LuxuryIcon } from "./Icons";
 
