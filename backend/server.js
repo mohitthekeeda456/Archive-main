@@ -13,10 +13,11 @@ app.use(express.json());
 
 // 2. Connect to MongoDB
 // We use the variable from your .env file
-mongoose.connect(process.env.MONGO_URI) 
+mongoose
+  .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB Connected Successfully!"))
   .catch((err) => console.log("❌ MongoDB Connection Error:", err));
-  app.get("/api/seed", async (req, res) => {
+app.get("/api/seed", async (req, res) => {
   try {
     // A. The Data we want to upload (Your fake data)
     const sampleProducts = [
@@ -25,21 +26,23 @@ mongoose.connect(process.env.MONGO_URI)
         name: "Dark Truffle",
         price: "$25.00",
         tagline: "Rich and intense 80% cocoa.",
-        image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+        image:
+          "https://images.unsplash.com/photo-1548907040-4baa42d10919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "Experience the depth of pure cocoa...",
         features: ["80% Cocoa", "Vegan", "Gluten Free"],
-        ingredients: "Cocoa mass, sugar, cocoa butter, vanilla."
+        ingredients: "Cocoa mass, sugar, cocoa butter, vanilla.",
       },
       {
         id: "hazelnut-praline",
         name: "Hazelnut Praline",
         price: "$28.00",
         tagline: "Crunchy hazelnuts in milk chocolate.",
-        image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", 
+        image:
+          "https://images.unsplash.com/photo-1548907040-4baa42d10919?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
         description: "A smooth blend of roasted hazelnuts...",
         features: ["Roasted Hazelnuts", "Milk Chocolate"],
-        ingredients: "Sugar, hazelnuts, milk powder, cocoa butter."
-      }
+        ingredients: "Sugar, hazelnuts, milk powder, cocoa butter.",
+      },
       // You can add more from your frontend data/products.js file here if you want!
     ];
 
@@ -52,6 +55,34 @@ mongoose.connect(process.env.MONGO_URI)
     res.send("✅ Success! Database populated with chocolates.");
   } catch (error) {
     res.status(500).send("❌ Error seeding database: " + error.message);
+  }
+});
+
+app.get("/api/products", async (req, res) => {
+  try {
+    // A. Ask MongoDB for all documents in the "products" collection
+    const allProducts = await Product.find();
+
+    // B. Send them back to the user
+    res.json(allProducts);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch products" });
+  }
+});
+
+// 4. The "Get Single Product" Route (For the Product Details Page)
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    // Find the one chocolate that matches the ID in the URL
+    const singleProduct = await Product.findOne({ id: req.params.id });
+
+    if (singleProduct) {
+      res.json(singleProduct);
+    } else {
+      res.status(404).json({ error: "Product not found" });
+    }
+  } catch (error) {
+    res.status(500).json({ error: "Error fetching product" });
   }
 });
 app.get("/", (req, res) => {
