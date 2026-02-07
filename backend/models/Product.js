@@ -9,7 +9,8 @@ const productSchema = new mongoose.Schema({
   image: { type: String, required: true }, // URL of the image
   description: { type: String },
   features: [{ type: String }], // An array of strings
-  ingredients: { type: String }
+  ingredients: { type: String },
+  isFeatured: { type: Boolean, default: false }
 });
 
 // 2. Export the Model

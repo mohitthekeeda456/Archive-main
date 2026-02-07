@@ -31,46 +31,48 @@ export default function Shop() {
 
     fetchProducts();
   }, []);
-
+  const featuredList = products.filter(p => p.isFeatured === true);
+  const normalList = products.filter(p => p.isFeatured !== true);
   return (
     <>
       <Navbar />
       <div className="page-container" style={pageStyle}>
         
+        {/* Header */}
         <div style={headerStyle}>
-          <h1 className="serif-font" style={{ fontSize: "3rem", marginBottom: "10px" }}>Shop Collection</h1>
-          <p style={{ color: "#666", maxWidth: "600px", margin: "0 auto" }}>
-            Discover our range of handcrafted chocolates, made from the finest cocoa beans.
-          </p>
+          <h1 className="serif-font">Our Collections</h1>
         </div>
 
-        {/* 3. Show Loading or Error if needed */}
-        {loading && <h2 style={{ textAlign: "center" }}>Loading Chocolates...</h2>}
-        {error && <h2 style={{ textAlign: "center", color: "red" }}>Error: {error}</h2>}
+        {loading && <h2>Loading...</h2>}
 
-        {/* 4. Show the Products */}
-        {!loading && !error && (
-          <div className="products-grid" style={gridStyle}>
-            {products.map((product) => (
-              <div key={product.id} className="product-card" style={cardStyle}>
-                <Link to={`/product/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div style={imageContainerStyle}>
-                    <img src={product.image} alt={product.name} style={imageStyle} />
-                  </div>
-                  <div style={infoStyle}>
-                    <h3 style={{ margin: "10px 0 5px", fontSize: "1.2rem" }}>{product.name}</h3>
-                    <p style={{ color: "#888", fontSize: "0.9rem" }}>{product.tagline}</p>
-                    <p style={{ fontWeight: "bold", marginTop: "10px", color: "#3e2723" }}>{product.price}</p>
-                  </div>
-                </Link>
-                <button 
-                  onClick={() => addToCart(product)}
-                  style={btnStyle}
-                >
-                  Add to Cart
-                </button>
-              </div>
-            ))}
+        {/* SECTION 1: Featured */}
+        {!loading && featuredList.length > 0 && (
+          <div style={{ marginBottom: "80px" }}>
+            <h2 className="serif-font" style={{ borderBottom: "1px solid #ddd", paddingBottom: "10px", marginBottom: "30px" }}>
+              ✨ Signature Collection
+            </h2>
+            <div className="products-grid" style={gridStyle}>
+              {featuredList.map(product => (
+                 // ... Render Product Card (Same code as before) ...
+                 // Make sure to use: onClick={() => addToCart(product)}
+                 <ProductCard key={product._id} product={product} addToCart={addToCart} />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 2: Normal */}
+        {!loading && normalList.length > 0 && (
+          <div>
+            <h2 className="serif-font" style={{ borderBottom: "1px solid #ddd", paddingBottom: "10px", marginBottom: "30px" }}>
+              🍫 Classic Collection
+            </h2>
+            <div className="products-grid" style={gridStyle}>
+              {normalList.map(product => (
+                 // ... Render Product Card ...
+                 <ProductCard key={product._id} product={product} addToCart={addToCart} />
+              ))}
+            </div>
           </div>
         )}
 
@@ -79,7 +81,20 @@ export default function Shop() {
     </>
   );
 }
-
+const ProductCard = ({ product, addToCart }) => (
+  <div style={cardStyle}>
+    <Link to={`/product/${product.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+      <div style={imageContainerStyle}>
+        <img src={product.image} alt={product.name} style={imageStyle} />
+      </div>
+      <div style={infoStyle}>
+        <h3>{product.name}</h3>
+        <p>{product.price}</p>
+      </div>
+    </Link>
+    <button onClick={() => addToCart(product)} style={btnStyle}>Add to Cart</button>
+  </div>
+)
 // --- STYLES ---
 const pageStyle = {
   padding: "120px 5%", // Space for fixed navbar
