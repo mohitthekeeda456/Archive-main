@@ -3,6 +3,8 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose"); // <--- 1. Import Mongoose
 const Product = require("./models/Product");
+const User = require("./models/User");
+const Order = require("./models/Order");
 dotenv.config();
 
 const app = express();
@@ -85,6 +87,104 @@ app.get("/api/products/:id", async (req, res) => {
     res.status(500).json({ error: "Error fetching product" });
   }
 });
+
+// 5. REGISTER ROUTE (Create a new user)
+app.post("/api/register", async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+
+    // A. Check if user already exists
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+      return res.status(400).json({ message: "User already exists" });
+    }
+
+    // B. Create the user
+    // (Note: In a real app, we would encrypt the password here using 'bcrypt')
+    const user = await User.create({
+      name,
+      email,
+      password, // Storing as plain text for now (Simplest for learning)
+    });
+
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      });
+    } else {
+      res.status(400).json({ message: "Invalid user data" });
+    }
+  } catch (error) {
+    console.log("❌ Error in Register:", error.message);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+app.post("/api/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // A. Find the user
+    const user = await User.findOne({ email });
+
+    // B. Check password (Direct comparison for now)
+    if (user && user.password === password) {
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+      });
+    } else {
+      res.status(401).json({ message: "Invalid email or password" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
+app.post("/api/orders", async (req, res) => {
+  try {
+    const { orderItems, shippingAddress, totalPrice, user } = req.body;
+
+    if (orderItems && orderItems.length === 0) {
+      return res.status(400).json({ message: "No order items" });
+    }
+
+    const order = new Order({
+      user, // The User ID coming from Frontend
+      orderItems,
+      shippingAddress,
+      totalPrice
+    });
+
+    const createdOrder = await order.save();
+    res.status(201).json(createdOrder);
+
+  } catch (error) {
+    console.log("❌ Error creating order:", error); // Debug helper
+    res.status(500).json({ message: "Order creation failed" });
+  }
+});
+
+// 8. GET MY ORDERS (For the Account Page)
+// We use a URL parameter :userId to know whose orders to fetch
+app.get("/api/orders/:userId", async (req, res) => {
+  try {
+    const orders = await Order.find({ user: req.params.userId });
+    res.json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching orders" });
+  }
+});
+
+
+
+
 app.get("/", (req, res) => {
   res.send("🚀 Server is running and DB is connected!");
 });
