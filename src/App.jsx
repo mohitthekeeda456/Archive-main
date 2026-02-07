@@ -19,6 +19,8 @@ import ScrollToTop from "./Components/ScrollToTop";
 import ProtectedRoute from "./Components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import AddProduct from "./pages/AddProduct";
+import ManageProducts from "./pages/ManageProducts";
+import AdminRoute from "./Components/AdminRoute";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -60,7 +62,23 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route path="/host" element={<AddProduct />} />
+              <Route
+                path="/host"
+                element={
+                  <AdminRoute>
+                    <AddProduct />
+                  </AdminRoute>
+                }
+              />
+
+              <Route
+                path="/admin"
+                element={
+                  <AdminRoute>
+                    <ManageProducts />
+                  </AdminRoute>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

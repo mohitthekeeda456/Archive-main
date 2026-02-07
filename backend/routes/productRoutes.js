@@ -69,4 +69,37 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// ... existing routes ...
+
+// 5. UPDATE PRODUCT (Toggle Featured or Edit Details)
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedProduct = await Product.findOneAndUpdate(
+      { id: req.params.id }, // Find by our custom "id" (e.g., "dark-truffle")
+      req.body,              // Update with whatever data we sent
+      { new: true }          // Return the *new* version, not the old one
+    );
+    if (updatedProduct) res.json(updatedProduct);
+    else res.status(404).json({ message: "Product not found" });
+  } catch (error) {
+    res.status(500).json({ message: "Update failed" });
+  }
+});
+
+// 6. DELETE PRODUCT
+router.delete("/:id", async (req, res) => {
+  try {
+    const deletedProduct = await Product.findOneAndDelete({ id: req.params.id });
+    if (deletedProduct) res.json({ message: "Product deleted" });
+    else res.status(404).json({ message: "Product not found" });
+  } catch (error) {
+    res.status(500).json({ message: "Delete failed" });
+  }
+});
+
+module.exports = router;
+
+
+
+
 module.exports = router;
