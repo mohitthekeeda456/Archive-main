@@ -18,6 +18,7 @@ import Account from "./pages/Account";
 import ScrollToTop from "./Components/ScrollToTop";
 import ProtectedRoute from "./Components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
+import AddProduct from "./pages/AddProduct";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -59,6 +60,7 @@ export default function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/host" element={<AddProduct />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

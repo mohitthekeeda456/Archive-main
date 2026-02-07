@@ -14,6 +14,40 @@ router.get("/seed", async (req, res) => {
   }
 });
 
+// ... imports ...
+
+// 4. ADD NEW PRODUCT (Host Page)
+router.post("/", async (req, res) => {
+  try {
+    const { id, name, price, tagline, image, description, features, ingredients, isFeatured } = req.body;
+
+    // Validation: Check if product with this ID already exists (e.g., "dark-truffle")
+    const productExists = await Product.findOne({ id });
+    if (productExists) {
+      return res.status(400).json({ message: "Product ID already exists. Try a different one." });
+    }
+
+    const product = new Product({
+      id,
+      name,
+      price,
+      tagline,
+      image,
+      description,
+      features, // Make sure Frontend sends this as an Array!
+      ingredients,
+      isFeatured
+    });
+
+    const createdProduct = await product.save();
+    res.status(201).json(createdProduct);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error: " + error.message });
+  }
+});
+
+// ... existing GET routes ...
+
 // 2. Get All Products
 router.get("/", async (req, res) => {
   try {

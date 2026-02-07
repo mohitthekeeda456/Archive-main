@@ -1,25 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../Components/Navbar";
+import Navbar from "../components/Navbar";
 import Footer from "../Components/Footer";
 import { useCart } from "../context/CartContext";
 
 export default function Cart() {
-  const { cart, removeFromCart, addToCart, cartTotal } = useCart();
+  // 1. Get 'updateQuantity' from the context
+  const { cart, removeFromCart, updateQuantity, cartTotal } = useCart();
 
-  // Helper to handle quantity decrease
+  // 2. The Logic to handle "-" click
   const decreaseQuantity = (item) => {
     if (item.quantity > 1) {
-      // If qty > 1, just decrease logic (we need a custom decrease function in context ideally, 
-      // but for now, we can simple add a "decrease" function to Context later.
-      // For this moment, let's just tell user to remove it if they want 0, 
-      // OR we can implement a specific 'updateQuantity' function.
-      // Let's keep it simple: We will handle this in the next update.
-      // For now, this button is a placeholder for the update logic.
-      alert("To decrease quantity, remove the item and add it again (We will fix this logic next!)");
+      updateQuantity(item.id, -1); // Decrease by 1
     } else {
-      removeFromCart(item.id);
+      removeFromCart(item.id); // If it's 1, remove it
     }
+  };
+
+  // 3. The Logic to handle "+" click
+  const increaseQuantity = (item) => {
+    updateQuantity(item.id, 1); // Increase by 1
   };
 
   if (cart.length === 0) {
@@ -31,7 +31,7 @@ export default function Cart() {
           <p style={{ color: "#666", marginBottom: "30px" }}>
             Looks like you haven't indulged in any chocolate yet.
           </p>
-          <Link to="/shop" className="btn-primary">
+          <Link to="/shop" style={btnPrimaryStyle}>
             Start Shopping
           </Link>
         </div>
@@ -77,14 +77,13 @@ export default function Cart() {
 
                 {/* Quantity Controls */}
                 <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
-                  <button style={qtyBtnStyle} onClick={() => decreaseQuantity(item)}>-</button>
+                  <button style={qtyBtnStyle} onClick={() => decreaseQuantity(item)}>−</button>
                   <span style={{ fontWeight: "bold" }}>{item.quantity}</span>
-                  <button style={qtyBtnStyle} onClick={() => addToCart(item)}>+</button>
+                  <button style={qtyBtnStyle} onClick={() => increaseQuantity(item)}>+</button>
                 </div>
 
                 {/* Total Price for this Item */}
                 <div style={{ flex: 1, textAlign: "right", fontWeight: "bold", color: "#3e2723" }}>
-                  {/* Simple calc for display: Price * Qty */}
                   ${(parseFloat(item.price.replace("$", "")) * item.quantity).toFixed(2)}
                 </div>
 
@@ -102,7 +101,7 @@ export default function Cart() {
             </div>
             <div style={summaryRowStyle}>
               <span>Shipping</span>
-              <span>Calculated at checkout</span>
+              <span>Free</span>
             </div>
 
             <div style={{ ...summaryRowStyle, fontSize: "1.2rem", fontWeight: "bold", marginTop: "20px", color: "#3e2723" }}>
@@ -110,7 +109,7 @@ export default function Cart() {
               <span>${cartTotal}</span>
             </div>
 
-            <Link to="/checkout" className="btn-checkout" style={checkoutBtnStyle}>
+            <Link to="/checkout" style={checkoutBtnStyle}>
               Proceed to Checkout
             </Link>
 
@@ -130,22 +129,31 @@ export default function Cart() {
 
 // --- STYLES ---
 const pageStyle = {
-  padding: "40px 5%", // Clean padding
+  padding: "120px 5%",
   maxWidth: "1200px",
   margin: "0 auto",
-  minHeight: "60vh" // Ensures footer doesn't jump up on empty cart
+  minHeight: "60vh"
 };
 
 const emptyCartStyle = {
   textAlign: "center",
-  padding: "100px 20px",
+  padding: "150px 20px",
   minHeight: "50vh"
+};
+
+const btnPrimaryStyle = {
+    padding: "12px 25px",
+    backgroundColor: "#3e2723",
+    color: "#fff",
+    textDecoration: "none",
+    borderRadius: "5px",
+    fontWeight: "bold"
 };
 
 const layoutStyle = {
   display: "flex",
   gap: "50px",
-  flexWrap: "wrap" // Responsive: Stack on mobile
+  flexWrap: "wrap"
 };
 
 const headerRowStyle = {
@@ -168,7 +176,7 @@ const itemRowStyle = {
 const removeLinkStyle = {
   background: "none",
   border: "none",
-  color: "#d32f2f", // Red text
+  color: "#d32f2f",
   cursor: "pointer",
   fontSize: "0.8rem",
   textDecoration: "underline",
@@ -195,7 +203,7 @@ const summaryBoxStyle = {
   backgroundColor: "#f9f9f9",
   padding: "30px",
   borderRadius: "10px",
-  height: "fit-content" // Don't stretch full height
+  height: "fit-content"
 };
 
 const summaryRowStyle = {

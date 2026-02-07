@@ -72,7 +72,8 @@ export const CartProvider = ({ children }) => {
     } else {
       // Add new item (Ensure we save all fields needed for DB)
       newCart = [...cart, { 
-        id: product.id, 
+        id: product.id,
+        _id: product._id, 
         name: product.name, 
         price: product.price, 
         image: product.image, 
@@ -88,14 +89,15 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (productId, amount) => {
+    // 1. Calculate new quantities
     const newCart = cart.map((item) => {
       if (item.id === productId) {
-        const newQty = item.quantity + amount;
-        return newQty > 0 ? { ...item, quantity: newQty } : item;
+        return { ...item, quantity: item.quantity + amount };
       }
       return item;
     });
-    saveCart(newCart);
+    const finalCart = newCart.filter((item) => item.quantity > 0);
+    saveCart(finalCart);
   };
   
   const clearCart = () => {
