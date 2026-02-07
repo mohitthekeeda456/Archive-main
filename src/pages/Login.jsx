@@ -18,6 +18,13 @@ export default function Login() {
     setError(""); // Clear previous errors
     setLoading(true);
 
+    // 1. Simple Email Check
+    if (!email.includes("@") || !email.includes(".")) {
+      setError("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
     try {
       // 1. Send data to Backend
       const response = await fetch("http://localhost:5000/api/users/login", {
