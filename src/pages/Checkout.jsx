@@ -35,7 +35,8 @@ export default function Checkout() {
         product: item._id // Assuming your product has an ID
       })),
       shippingAddress: address,
-      totalPrice: cartTotal,
+      // Remove commas and convert to a Number (e.g. "1,200" -> 1200)
+      totalPrice: parseFloat(cartTotal.toString().replace(/,/g, "")),
     };
 
     try {
@@ -83,7 +84,7 @@ export default function Checkout() {
             <div style={{ background: "#f9f9f9", padding: "20px", borderRadius: "8px" }}>
               <h3>Order Summary</h3>
               <p>Total Items: {cart.length}</p>
-              <h2 style={{ color: "#3e2723" }}>Total: ${cartTotal}</h2>
+              <h2 style={{ color: "#3e2723" }}>Total: ₹{cartTotal}</h2>
             </div>
 
             <button type="submit" style={btnStyle} disabled={loading}>

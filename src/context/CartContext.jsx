@@ -33,12 +33,18 @@ export const CartProvider = ({ children }) => {
   }, [user]); // Rerun this whenever 'user' changes (Login/Logout)
 
   // 2. CALCULATE TOTAL (Runs automatically when cart changes)
-  useEffect(() => {
+ useEffect(() => {
     const total = cart.reduce((sum, item) => {
-      const priceNumber = parseFloat(item.price.replace("$", ""));
-      return sum + priceNumber * item.quantity;
+      // Logic: Remove "₹" and "," (commas) then convert to Number
+      // Example: "₹1,200" -> "1200" -> 1200
+      const priceString = item.price.replace("₹", "").replace(/,/g, ""); 
+      const priceNumber = parseFloat(priceString);
+      
+      return sum + (priceNumber * item.quantity);
     }, 0);
-    setCartTotal(total.toFixed(2));
+
+    // Format back to Indian Locale (e.g., "1,200")
+    setCartTotal(total.toLocaleString("en-IN"));
   }, [cart]);
 
   // 3. SAVE CART HELPER (Decides where to save)

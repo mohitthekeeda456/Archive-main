@@ -46,7 +46,11 @@ export default function AddProduct() {
     setError("");
 
     // Combine everything
-    const productData = { ...formData, features };
+    let finalPrice = formData.price;
+    if (!finalPrice.startsWith("₹")) {
+      finalPrice = "₹" + finalPrice;
+    }
+   const productData = { ...formData, price: finalPrice, features };
 
     try {
       const response = await fetch("http://localhost:5000/api/products", {
@@ -89,7 +93,7 @@ export default function AddProduct() {
 
             {/* Row 2 */}
             <div style={rowStyle}>
-              <input type="text" name="price" placeholder="Price (e.g. $22.00)" required style={inputStyle} onChange={handleChange} />
+              <input type="text" name="price" placeholder="Price (e.g. 1200)" required style={inputStyle} onChange={handleChange} />
               <input type="text" name="tagline" placeholder="Short Tagline" required style={inputStyle} onChange={handleChange} />
             </div>
 

@@ -27,7 +27,12 @@ export default function Cart() {
       <>
         <Navbar />
         <div style={emptyCartStyle}>
-          <h2 className="serif-font" style={{ fontSize: "2rem", marginBottom: "20px" }}>Your Cart is Empty</h2>
+          <h2
+            className="serif-font"
+            style={{ fontSize: "2rem", marginBottom: "20px" }}
+          >
+            Your Cart is Empty
+          </h2>
           <p style={{ color: "#666", marginBottom: "30px" }}>
             Looks like you haven't indulged in any chocolate yet.
           </p>
@@ -44,11 +49,14 @@ export default function Cart() {
     <>
       <Navbar />
       <div className="page-container" style={pageStyle}>
-        
-        <h1 className="serif-font" style={{ textAlign: "center", marginBottom: "50px" }}>Your Shopping Cart</h1>
+        <h1
+          className="serif-font"
+          style={{ textAlign: "center", marginBottom: "50px" }}
+        >
+          Your Shopping Cart
+        </h1>
 
         <div className="cart-layout" style={layoutStyle}>
-          
           {/* LEFT: Cart Items List */}
           <div className="cart-items" style={{ flex: 2 }}>
             <div style={headerRowStyle}>
@@ -59,14 +67,33 @@ export default function Cart() {
 
             {cart.map((item) => (
               <div key={item.id} style={itemRowStyle}>
-                
                 {/* Product Image & Name */}
-                <div style={{ flex: 3, display: "flex", alignItems: "center", gap: "20px" }}>
-                  <img src={item.image} alt={item.name} style={{ width: "80px", height: "80px", objectFit: "cover", borderRadius: "8px" }} />
+                <div
+                  style={{
+                    flex: 3,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "20px",
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    style={{
+                      width: "80px",
+                      height: "80px",
+                      objectFit: "cover",
+                      borderRadius: "8px",
+                    }}
+                  />
                   <div>
-                    <h4 style={{ margin: "0 0 5px 0", fontSize: "1.1rem" }}>{item.name}</h4>
-                    <p style={{ margin: 0, color: "#888", fontSize: "0.9rem" }}>{item.price}</p>
-                    <button 
+                    <h4 style={{ margin: "0 0 5px 0", fontSize: "1.1rem" }}>
+                      {item.name}
+                    </h4>
+                    <p style={{ margin: 0, color: "#888", fontSize: "0.9rem" }}>
+                      {item.price}
+                    </p>
+                    <button
                       onClick={() => removeFromCart(item.id)}
                       style={removeLinkStyle}
                     >
@@ -76,25 +103,64 @@ export default function Cart() {
                 </div>
 
                 {/* Quantity Controls */}
-                <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", gap: "10px" }}>
-                  <button style={qtyBtnStyle} onClick={() => decreaseQuantity(item)}>−</button>
+                <div
+                  style={{
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "10px",
+                  }}
+                >
+                  <button
+                    style={qtyBtnStyle}
+                    onClick={() => decreaseQuantity(item)}
+                  >
+                    −
+                  </button>
                   <span style={{ fontWeight: "bold" }}>{item.quantity}</span>
-                  <button style={qtyBtnStyle} onClick={() => increaseQuantity(item)}>+</button>
+                  <button
+                    style={qtyBtnStyle}
+                    onClick={() => increaseQuantity(item)}
+                  >
+                    +
+                  </button>
                 </div>
 
                 {/* Total Price for this Item */}
-                <div style={{ flex: 1, textAlign: "right", fontWeight: "bold", color: "#3e2723" }}>
-                  ${(parseFloat(item.price.replace("$", "")) * item.quantity).toFixed(2)}
+                {/* Total Price for this Item */}
+                <div
+                  style={{
+                    flex: 1,
+                    textAlign: "right",
+                    fontWeight: "bold",
+                    color: "#3e2723",
+                  }}
+                >
+                  {/* Calculate: (Price Number * Qty) then format with ₹ */}₹
+                  {(
+                    parseFloat(item.price.replace("₹", "").replace(/,/g, "")) *
+                    item.quantity
+                  ).toLocaleString("en-IN")}
                 </div>
-
               </div>
             ))}
           </div>
 
           {/* RIGHT: Order Summary */}
           <div className="cart-summary" style={summaryBoxStyle}>
-            <h3 className="serif-font" style={{ marginTop: 0, marginBottom: "20px", borderBottom: "1px solid #ddd", paddingBottom: "10px" }}>Order Summary</h3>
-            
+            <h3
+              className="serif-font"
+              style={{
+                marginTop: 0,
+                marginBottom: "20px",
+                borderBottom: "1px solid #ddd",
+                paddingBottom: "10px",
+              }}
+            >
+              Order Summary
+            </h3>
+
             <div style={summaryRowStyle}>
               <span>Subtotal</span>
               <span>${cartTotal}</span>
@@ -104,9 +170,17 @@ export default function Cart() {
               <span>Free</span>
             </div>
 
-            <div style={{ ...summaryRowStyle, fontSize: "1.2rem", fontWeight: "bold", marginTop: "20px", color: "#3e2723" }}>
+            <div
+              style={{
+                ...summaryRowStyle,
+                fontSize: "1.2rem",
+                fontWeight: "bold",
+                marginTop: "20px",
+                color: "#3e2723",
+              }}
+            >
               <span>Total</span>
-              <span>${cartTotal}</span>
+              <span>₹{cartTotal}</span>
             </div>
 
             <Link to="/checkout" style={checkoutBtnStyle}>
@@ -114,12 +188,18 @@ export default function Cart() {
             </Link>
 
             <div style={{ marginTop: "20px", textAlign: "center" }}>
-              <Link to="/shop" style={{ color: "#666", textDecoration: "none", fontSize: "0.9rem" }}>
-                 or Continue Shopping
+              <Link
+                to="/shop"
+                style={{
+                  color: "#666",
+                  textDecoration: "none",
+                  fontSize: "0.9rem",
+                }}
+              >
+                or Continue Shopping
               </Link>
             </div>
           </div>
-
         </div>
       </div>
       <Footer />
@@ -132,28 +212,28 @@ const pageStyle = {
   padding: "120px 5%",
   maxWidth: "1200px",
   margin: "0 auto",
-  minHeight: "60vh"
+  minHeight: "60vh",
 };
 
 const emptyCartStyle = {
   textAlign: "center",
   padding: "150px 20px",
-  minHeight: "50vh"
+  minHeight: "50vh",
 };
 
 const btnPrimaryStyle = {
-    padding: "12px 25px",
-    backgroundColor: "#3e2723",
-    color: "#fff",
-    textDecoration: "none",
-    borderRadius: "5px",
-    fontWeight: "bold"
+  padding: "12px 25px",
+  backgroundColor: "#3e2723",
+  color: "#fff",
+  textDecoration: "none",
+  borderRadius: "5px",
+  fontWeight: "bold",
 };
 
 const layoutStyle = {
   display: "flex",
   gap: "50px",
-  flexWrap: "wrap"
+  flexWrap: "wrap",
 };
 
 const headerRowStyle = {
@@ -163,14 +243,14 @@ const headerRowStyle = {
   color: "#888",
   fontSize: "0.9rem",
   textTransform: "uppercase",
-  letterSpacing: "1px"
+  letterSpacing: "1px",
 };
 
 const itemRowStyle = {
   display: "flex",
   alignItems: "center",
   padding: "25px 0",
-  borderBottom: "1px solid #eee"
+  borderBottom: "1px solid #eee",
 };
 
 const removeLinkStyle = {
@@ -181,7 +261,7 @@ const removeLinkStyle = {
   fontSize: "0.8rem",
   textDecoration: "underline",
   padding: 0,
-  marginTop: "5px"
+  marginTop: "5px",
 };
 
 const qtyBtnStyle = {
@@ -195,7 +275,7 @@ const qtyBtnStyle = {
   alignItems: "center",
   justifyContent: "center",
   fontSize: "1.2rem",
-  color: "#555"
+  color: "#555",
 };
 
 const summaryBoxStyle = {
@@ -203,14 +283,14 @@ const summaryBoxStyle = {
   backgroundColor: "#f9f9f9",
   padding: "30px",
   borderRadius: "10px",
-  height: "fit-content"
+  height: "fit-content",
 };
 
 const summaryRowStyle = {
   display: "flex",
   justifyContent: "space-between",
   marginBottom: "15px",
-  color: "#555"
+  color: "#555",
 };
 
 const checkoutBtnStyle = {
@@ -224,5 +304,5 @@ const checkoutBtnStyle = {
   borderRadius: "5px",
   fontWeight: "bold",
   marginTop: "20px",
-  transition: "background 0.3s"
+  transition: "background 0.3s",
 };
