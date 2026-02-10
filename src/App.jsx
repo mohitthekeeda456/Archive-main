@@ -20,6 +20,9 @@ import ProtectedRoute from "./Components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import AddProduct from "./pages/AddProduct";
 import ManageProducts from "./pages/ManageProducts";
+import AddBlog from "./pages/AddBlog";
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import AdminRoute from "./Components/AdminRoute";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
@@ -79,6 +82,16 @@ export default function App() {
                   </AdminRoute>
                 }
               />
+              <Route
+                path="/write"
+                element={
+                  <AdminRoute>
+                    <AddBlog />
+                  </AdminRoute>
+                }
+              />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:id" element={<BlogPost />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

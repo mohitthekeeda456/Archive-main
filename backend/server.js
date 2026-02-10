@@ -8,6 +8,7 @@ const productRoutes = require("./routes/productRoutes");
 const userRoutes = require("./routes/userRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const cartRoutes = require("./routes/cartRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 dotenv.config();
 
 const app = express();
@@ -28,6 +29,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes); // Note: I changed this slightly to be cleaner
 app.use("/api/orders", orderRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/blogs", blogRoutes);
 // Base Route
 app.get("/", (req, res) => {
   res.send("🚀 Server is running and DB is connected!");
