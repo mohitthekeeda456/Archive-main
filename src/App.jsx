@@ -24,6 +24,7 @@ import AddBlog from "./pages/AddBlog";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import AdminRoute from "./Components/AdminRoute";
+import AdminDashboard from "./pages/AdminDashboard";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -92,6 +93,14 @@ export default function App() {
               />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:id" element={<BlogPost />} />
+              <Route
+                path="/dashboard"
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

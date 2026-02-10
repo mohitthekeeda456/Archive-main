@@ -29,10 +29,19 @@ export default function Navbar() {
             <li>
               <Link to="/contact">Contact Us</Link>
             </li>
-            
+
             <Link to="/blog" style={linkStyle}>
               Journal
             </Link>
+            {/* 👇 NEW: Only show Dashboard if user is Admin */}
+            {user && user.isAdmin && (
+              <Link
+                to="/dashboard"
+                style={{ ...linkStyle, color: "#d2691e", fontWeight: "bold" }}
+              >
+                Dashboard
+              </Link>
+            )}
           </ul>
         </div>
 
