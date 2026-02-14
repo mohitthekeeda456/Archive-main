@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom"; // Grab the ID from URL
-import Navbar from "../components/Navbar";
+import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import { useCart } from "../context/CartContext";
 
