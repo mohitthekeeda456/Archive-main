@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
-import { useAuth } from "../context/AuthContext";
+import Footer from "../components/Footer";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Account() {
   const navigate = useNavigate();
@@ -177,3 +177,4 @@ const statusBadgeStyle = (isDelivered) => ({
   backgroundColor: isDelivered ? "#e8f5e9" : "#fff3e0",
   color: isDelivered ? "#2e7d32" : "#ef6c00",
 });
+

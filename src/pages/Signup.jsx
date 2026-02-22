@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
+import Footer from "../components/Footer";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -189,3 +189,4 @@ const linkStyle = {
   fontWeight: "bold",
   textDecoration: "none",
 };
+

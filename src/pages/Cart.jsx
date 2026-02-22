@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
-import { useCart } from "../context/CartContext";
+import Footer from "../components/Footer";
+import { useCart } from "../contexts/CartContext";
 
 export default function Cart() {
   // 1. Get 'updateQuantity' from the context
@@ -306,3 +306,4 @@ const checkoutBtnStyle = {
   marginTop: "20px",
   transition: "background 0.3s",
 };
+

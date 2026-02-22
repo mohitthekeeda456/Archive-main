@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom"; // Grab the ID from URL
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
-import { useCart } from "../context/CartContext";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import { useCart } from "../contexts/CartContext";
 
 export default function ProductPage() {
   const { id } = useParams(); // Get "dark-truffle" from the URL

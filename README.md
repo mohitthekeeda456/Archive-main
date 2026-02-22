@@ -1,16 +1,65 @@
-# React + Vite
+# NoirSane Archive
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend + backend codebase organized for easier team onboarding and maintenance.
 
-Currently, two official plugins are available:
+## Project structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```text
+Archive-main/
+|- backend/
+|  |- src/
+|  |  |- app.js
+|  |  |- server.js
+|  |  |- config/
+|  |  |  |- db.js
+|  |  |- controllers/
+|  |  |- routes/
+|  |  |- models/
+|  |  |- data/
+|  |     |- sampleData.js
+|  |- package.json
+|- public/
+|- src/
+|  |- assets/
+|  |- components/
+|  |- contexts/
+|  |- data/
+|  |- pages/
+|  |- styles/
+|  |- App.jsx
+|  |- main.jsx
+|- package.json
+|- vite.config.js
+```
 
-## React Compiler
+## Why this layout
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Backend runtime files are under `backend/src` (standard Node service layout).
+- API bootstrapping is split into:
+  - `backend/src/server.js`: process startup and port binding.
+  - `backend/src/app.js`: express app and route wiring.
+  - `backend/src/config/db.js`: database connection logic.
+- Frontend naming is consistent (`components`, `contexts`) to avoid case issues on Linux/CI.
 
-## Expanding the ESLint configuration
+## Run the project
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Frontend:
+
+```bash
+npm install
+npm run dev
+```
+
+Backend:
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+From root, you can also run backend dev with:
+
+```bash
+npm run dev:server
+```

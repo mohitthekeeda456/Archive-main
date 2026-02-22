@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from "../Components/Navbar"; // Check if your folder is 'Components' or 'Components'
-import Hero from "../Components/Hero";
-import Features from "../Components/Features";
-import FeaturedCollection from "../Components/FeaturedCollection";
-import CraftedWithPassion from "../Components/CraftedWithPassion";
-import Footer from "../Components/Footer";
+import Navbar from "../components/Navbar";
+import Hero from "../components/Hero";
+import Features from "../components/Features";
+import FeaturedCollection from "../components/FeaturedCollection";
+import CraftedWithPassion from "../components/CraftedWithPassion";
+import Footer from "../components/Footer";
 
 const Home = () => {
   return (

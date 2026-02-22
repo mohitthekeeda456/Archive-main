@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom"; // Used to kick people out
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function AdminRoute({ children }) {
   const { user } = useAuth();

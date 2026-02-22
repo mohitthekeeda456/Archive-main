@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
-import { useCart } from "../context/CartContext";
-import { useAuth } from "../context/AuthContext";
+import Footer from "../components/Footer";
+import { useCart } from "../contexts/CartContext";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Checkout() {
   const navigate = useNavigate();

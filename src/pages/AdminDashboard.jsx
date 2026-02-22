@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
-import { useAuth } from "../context/AuthContext";
+import Footer from "../components/Footer";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function AdminDashboard() {
   const { user } = useAuth();

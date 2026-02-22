@@ -1,4 +1,4 @@
-// src/Components/Icons.jsx
+// src/components/Icons.jsx
 import React from "react";
 
 export const CartIcon = () => (

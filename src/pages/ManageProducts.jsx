@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../Components/Navbar";
-import Footer from "../Components/Footer";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function ManageProducts() {
   const [products, setProducts] = useState([]);

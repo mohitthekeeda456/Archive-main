@@ -15,18 +15,18 @@ import Checkout from "./pages/Checkout";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Account from "./pages/Account";
-import ScrollToTop from "./Components/ScrollToTop";
-import ProtectedRoute from "./Components/ProtectedRoutes";
+import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/ProtectedRoutes";
 import NotFound from "./pages/NotFound";
 import AddProduct from "./pages/AddProduct";
 import ManageProducts from "./pages/ManageProducts";
 import AddBlog from "./pages/AddBlog";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
-import AdminRoute from "./Components/AdminRoute";
+import AdminRoute from "./components/AdminRoute";
 import AdminDashboard from "./pages/AdminDashboard";
-import { CartProvider } from "./context/CartContext";
-import { AuthProvider } from "./context/AuthContext";
+import { CartProvider } from "./contexts/CartContext";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   return (
@@ -109,3 +109,4 @@ export default function App() {
     </>
   );
 }
+

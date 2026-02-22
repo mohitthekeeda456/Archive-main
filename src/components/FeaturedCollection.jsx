@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useCart } from "../context/CartContext"; // <--- 1. Import Cart Hook
+import { useCart } from "../contexts/CartContext"; // <--- 1. Import Cart Hook
 
 export default function FeaturedCollection() {
   const { addToCart } = useCart(); // <--- 2. Get the function

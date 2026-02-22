@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
+import Footer from "../components/Footer";
 
 export default function Blog() {
   const [blogs, setBlogs] = useState([]);

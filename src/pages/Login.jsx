@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../Components/Footer";
-import { useAuth } from "../context/AuthContext"; // Import the Auth Context
+import Footer from "../components/Footer";
+import { useAuth } from "../contexts/AuthContext"; // Import the Auth Context
 
 export default function Login() {
   const navigate = useNavigate();
